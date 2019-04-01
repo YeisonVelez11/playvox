@@ -1,0 +1,234 @@
+<div class="contenedor_tabla w-100" >
+    <div class="w-100">
+      <div class="row no-gutters">
+        <div class="col-md-3 col-sm-3">
+          <div class="mr-2">
+              <select class="browser-default custom-select m-0 select "   id="filter" [(ngModel)]="filter"  mdbInput mdbValidate mdbInputDirective>
+                  <option *ngFor="let item of aFiltros"  [ngValue]="item">{{item.label}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-3">
+            <button class="btn button_playvox m-0" (click)="fn_setFilter(filter)"><i class="fas fa-plus-circle mr-1 icon_button" ></i> Add Filter</button>
+        </div>
+        <div class="col-md-6 col-sm-6 " >
+            <span class="my-4 font-weight-bold color_texto registros texto_filters"  *ngIf="aFiltersSelected.length!=0">Filters Selected</span>
+            <div class="buscar" style="float: right;">
+              <span *ngFor="let item of aFiltersSelected" class="d-block m-0 p-0 bordes_gris"  >
+                  <ng-container *ngFor="let op of aFiltros[item].operators">
+                    <span >
+                      <ng-container *ngIf="op.select">
+                          <span><mdb-badge pill="true" success="true" class="ml-1">{{aFiltros[item].label}}</mdb-badge> <mdb-badge pill="true" default="true" class="ml-1">{{oDictionaryoperators[op.operator]}} </mdb-badge>   <mdb-badge pill="true" *ngIf="aFiltros[item].values.length==0" default="true" class="ml-1">{{aFiltros[item].values.length==0?aFiltros[item].text:''}} </mdb-badge>   </span>
+                          <ng-container *ngFor="let val of aFiltros[item].values; let last=last">
+                            <ng-container *ngIf="val.select">
+                                <span class="ml-1"><mdb-badge pill="true" info="true" class="ml-1">{{val.name}}</mdb-badge> </span>
+                            </ng-container>
+                          </ng-container> 
+                      </ng-container>
+                    </span>
+                  </ng-container>
+                  <mdb-icon fas icon="times-circle" class="ml-1 icon_equis" (click)="fn_deleteFilter(item)"></mdb-icon>
+              </span>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="my-4 font-weight-bold color_texto registros" *ngIf="numberRequests!=0">{{numberRequests}} requests</p>
+    <p class="font-weight-bold color_texto registros" *ngIf="numberRequests==0" style="font-size: 32px;margin: 121px 0px;">Ooops! There are no records that satisfy your search. Try again!</p>
+    <span></span>
+
+
+
+
+    <table class="table table-hover"  *ngIf="aData">
+        <thead>
+          <tr style="border:none;">
+            <th  scope="col" *ngFor="let item of aHeaders" [ngClass]="item.show?'':'d-none'">
+              {{item.name}}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fila of  aData; let idx=index;">
+            <td  *ngFor="let item of aHeaders" [ngClass]="item.show?'':'d-none'">
+              <span *ngIf="item.name=='Priority'">
+               <mdb-icon fas icon="circle" class="mr-1" [ngClass]="oDictionaryBall[fila[item.name]]"></mdb-icon>
+                  {{fila[item.name]}}
+              </span>
+
+              <span *ngIf="item.name!='Tags' && item.name!='Priority' ">
+                  {{fila[item.name]}}
+              </span>
+              <span *ngIf="item.name=='Tags'" >
+                <span *ngFor="let tag of fila[item.name]">
+                    <mdb-badge pill="true" success="true" class="ml-1">{{tag}}</mdb-badge>
+                </span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+ 
+</div>
+
+<!-- Modal-->
+<div mdbModal #frame="mdbModal" class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true"  [config]="{backdrop: true, ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-notify modal-success" role="document">
+    <!--Content-->
+    <div class="modal-content">
+      <!--Header-->
+      <div class="modal-header">
+        <p class="heading lead"><mdb-icon fas icon="filter" class="mr-2 color_blanco" ></mdb-icon>{{filter?.label}}</p>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true" class="white-text">&times;</span>
+        </button>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+        <div>
+          <div class="list-group-item ">
+              <form [formGroup]="validationForm" >
+                <div class="text-center mb-4">
+                  <p [ngClass]="validationForm.controls['option_filter'].invalid && (validationForm.controls['option_filter'].dirty || validationForm.controls['option_filter'].touched)?'background_bola_roja':''">Choose a option: <i mdbWavesEffect class="far  ml-1 eye" mdbTooltip="Ocultar/Mostrar" placement="left" size="md" (click)="fn_showHide(filter.label)" [ngClass]="filter?.show?'fa-eye':'fa-eye-slash'"></i></p>
+                  <div class="form-check d-inline mt-2" *ngFor="let item of filter?.operators;let i=index">
+                    <input type="radio" class="form-check-input" id="option_{{i}}" name="option_filter" [value]="item.operator" formControlName="option_filter"  >
+                    <label class="form-check-label bola_verde_radio" for="option_{{i}}"  >{{oDictionaryoperators[item.operator]}}</label>
+                  </div>
+                </div>  
+                <p class="text-center" [ngClass]="!bCheckbox?'background_bola_roja':''">Choose fields: </p>
+                <div *ngIf="filter?.values?.length!=0 && validationForm.controls.checkboxes" class="mt-4">
+                      <div formArrayName="checkboxes" *ngFor="let control of validationForm.controls.checkboxes.controls; let i = index" class="d-inline" >
+                          <mdb-checkbox [formControlName]="i" [inline]="true">{{filter.values[i].name}}</mdb-checkbox>
+                      </div>
+                  </div>
+                  <div class="md-form" *ngIf="filter?.values.length==0">
+                      <i class="fa fa-search prefix"></i>
+                      <input mdbInput mdbValidate formControlName="emailFormEx"  [type]="filter?.type=='number'?'number':'text'"
+                            class="form-control" id="form9">
+                      <label for="form9">Search..</label>
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer justify-content-center">
+        <button class="button_playvox"   (click)="fn_submit(validationForm);" mdbWavesEffect>Save
+          <i class="far fa-save ml-1"></i>
+        </button>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="page-footer font-small fondo_footer sombra">
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+      <!-- Grid row -->
+      <div class="row">
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 mr-auto my-md-2 my-0  mb-1">
+          <!-- Content -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Content</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit amet numquam iure provident voluptate esse quasi,
+            veritatis totam voluptas nostrum.</p>
+        </div>
+        <!-- Grid column -->
+        <hr class="clearfix w-100 d-md-none">
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 mx-auto my-md-2 my-0 mt-2 mb-1">
+          <!-- Links -->
+          <h5 class="font-weight-bold text-uppercase mb-2">Partners</h5>
+          <ul class="list-unstyled">
+            <li>
+              <p class="m-0 p-0">
+                <a href="#!" class="nav-link ">Portfolio</a>
+              </p>
+            </li>
+            <li>
+              <p class="m-0 p-0">
+                <a href="#!" class="nav-link">About us</a>
+              </p>
+            </li>
+            <li>
+              <p class="m-0 p-0">
+                <a href="#!" class="nav-link">Blog</a>
+              </p>
+            </li>
+            <li>
+              <p class="m-0 p-0">
+                <a href="#!" class="nav-link">Awards</a>
+              </p>
+            </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+        <hr class="clearfix w-100 d-md-none">
+        <!-- Grid column -->
+        <div class="col-md-4 col-lg-3 mx-auto my-md-2 my-0 mt-2 mb-1">
+          <!-- Contact details -->
+          <h5 class="font-weight-bold text-uppercase mb-2">Address</h5>
+          <ul class="list-unstyled">
+            <li>
+              <p>
+                <mdb-icon fas icon="home" class="mr-3"></mdb-icon> 440 N.Wolfe Rd, Sunnyvale, CA
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="envelope" class="mr-3"></mdb-icon>  marketing@playvox.com
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="phone" class="mr-3"></mdb-icon> +1 (415) 854 - 3801
+              </p>
+            </li>
+            <li>
+              <p>
+                <mdb-icon fas icon="print" class="mr-3"></mdb-icon> +1 (415) 854 - 3801
+              </p>
+            </li>
+          </ul>
+        </div>
+        <!-- Grid column -->
+        <hr class="clearfix w-100 d-md-none">
+        <!-- Grid column -->
+        <div class="col-md-2 col-lg-2 text-center mx-auto my-1">
+          <!-- Social buttons -->
+          <h5 class="font-weight-bold text-uppercase mb-4">Follow Us</h5>
+          <!-- Facebook -->
+          <a mdbBtn floating="true" type="button" class="btn-fb" mdbWavesEffect>
+            <mdb-icon fab icon="facebook"></mdb-icon>
+          </a>
+          <!-- Twitter -->
+          <a type="button" mdbBtn floating="true" class="btn-tw" mdbWavesEffect>
+            <mdb-icon fab icon="twitter"></mdb-icon>
+          </a>
+          <!-- Google +-->
+          <a type="button" mdbBtn floating="true" class="btn-gplus" mdbWavesEffect>
+            <mdb-icon fab fab icon="google-plus"></mdb-icon>
+          </a>
+          <!-- Dribbble -->
+          <a type="button" mdbBtn floating="true" class="btn-dribbble" mdbWavesEffect>
+            <mdb-icon fab icon="dribbble"></mdb-icon>
+          </a>
+        </div>
+        <!-- Grid column -->
+      </div>
+      <!-- Grid row -->
+    </div>
+    <!-- Footer Links -->
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2019 Copyright:
+      <a >Playvox</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->

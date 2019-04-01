@@ -1,0 +1,8 @@
+<div class="completer-dropdown-holder" *ngIf="isOpen()">
+  <div class="completer-dropdown" #dropdown>
+    <div class="completer-row-wrapper">
+      <div *ngIf="optionList.length === 0 " class="completer-no-results">{{textNoResults}}</div>
+      <ng-content #content></ng-content>
+    </div>
+  </div>
+</div>

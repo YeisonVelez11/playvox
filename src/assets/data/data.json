@@ -1,0 +1,88 @@
+[
+    {
+        "User Name":"yeison velez",
+        "Subject": "I can't log in",
+        "Customer Satisfaction": 75,
+        "Priority": "High",
+        "Status": "Open",
+        "Tags": [
+            "account",
+            "reset_password"
+        ]
+    },
+
+    {
+        "User Name":"Jaime Ortiz",
+        "Subject": "I need support",
+        "Customer Satisfaction": 20,
+        "Priority": "Medium",
+        "Status": "Pending",
+        "Tags": [
+            "support"
+        ]
+    },
+
+    {
+        "User Name":"Pepito Pérez",
+        "Subject": "I lost my password",
+        "Customer Satisfaction": 100,
+        "Priority": "Low",
+        "Status": "Pending",
+        "Tags": [
+            "account",
+            "reset_password"
+        ]
+    },
+    {
+        "User Name":"Jhonatan García",
+        "Subject": "Recomendation",
+        "Customer Satisfaction": 30,
+        "Priority": "Medium",
+        "Status": "Closed",
+        "Tags": [
+            "Feedback"
+        ]
+    },
+    {
+        "User Name":"Irma Guzmán",
+        "Subject": "Compatibility Browser",
+        "Customer Satisfaction": 45,
+        "Priority": "High",
+        "Status": "Open",
+        "Tags": [
+            "Compatibility"
+        ]
+    },
+    {
+        "User Name":"Eduardo Vélez",
+        "Subject": "Supporting",
+        "Customer Satisfaction": 55,
+        "Priority": "Low",
+        "Status": "Closed",
+        "Tags": [
+            "Support"
+        ]
+    },
+    {
+        "User Name":"Alejandra Vélez",
+        "Subject": "License",
+        "Customer Satisfaction": 15,
+        "Priority": "High",
+        "Status": "Open",
+        "Tags": [
+            "License"
+        ]
+    },
+    {
+        "User Name":"Felipe Vega",
+        "Subject": "Congratulations!",
+        "Customer Satisfaction": 100,
+        "Priority": "Low",
+        "Status": "Closed",
+        "Tags": [
+            "Greetings"
+        ]
+    }
+
+
+]

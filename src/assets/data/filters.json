@@ -1,0 +1,172 @@
+[
+
+    {
+        "_id": "user_name",
+        "type": "string",
+        "label": "User Name",
+        "operators": [
+            {
+                "operator":"equal",
+                "select":false
+            },
+            {
+                "operator":"not_equal",
+                "select":false
+            },    
+            {
+                "operator":"like",
+                "select":false
+            }                   
+
+        ],
+        "show":true,
+        "text":"",
+        "values": [
+
+            ]
+    },
+    {
+        "_id": "status",
+        "type": "string",
+        "label": "Status",
+        "operators": [
+            {
+                "operator":"equal",
+                "select":false
+            },
+            {
+                "operator":"not_equal",
+                "select":false
+            }          
+        ],
+        "show":true,
+        "text":"",
+        "values": [
+                {
+                    "_id": "open",
+                    "name": "Open",
+                    "select":false
+                },
+                {
+                    "_id": "pending",
+                    "name": "Pending",
+                    "select":false
+                },
+                {
+                    "_id": "solved",
+                    "name": "Solved",
+                    "select":false
+                },
+                {
+                    "_id": "closed",
+                    "name": "Closed",
+                    "select":false
+                },
+                {
+                    "_id": "hold",
+                    "name": "Hold",
+                    "select":false
+                }
+            ]
+    },
+    {
+        "_id": "csat",
+        "type": "number",
+        "label": "Customer Satisfaction",
+        "operators": [
+            {
+                "operator":"equal",
+                "select":false
+            },
+            {
+                "operator":"not_equal",
+                "select":false
+            },    
+            {
+                "operator":"gt",
+                "select":false
+            },
+            {
+                "operator":"gte",
+                "select":false
+            },                        
+            {
+                "operator":"lt",
+                "select":false
+            },
+            {
+                "operator":"lte",
+                "select":false
+            }
+                                   
+        ],
+        "show":true,
+        "values":[],
+        "text":""
+    },
+    {
+        "_id": "subject",
+        "type": "string",
+        "label": "Subject",
+        "operators": [
+            {
+                "operator":"equal",
+                "select":false
+            },
+            {
+                "operator":"not_equal",
+                "select":false
+            },    
+            {
+                "operator":"like",
+                "select":false
+            }                   
+
+        ],
+        "show":true,
+        "text":"",
+        "values": [
+
+            ]
+    },
+    {
+        "_id": "priority",
+        "type": "string",
+        "label": "Priority",
+        "operators": [
+            {
+                "operator":"equal",
+                "select":false
+            },
+            {
+                "operator":"not_equal",
+                "select":false
+            }    
+               
+
+        ],
+        "show":true,
+        "text":"",
+        "values": [
+                {
+                    "_id": "high",
+                    "name": "High",
+                    "select":false
+                },
+                {
+                    "_id": "medium",
+                    "name": "Medium",
+                    "select":false
+                },
+                {
+                    "_id": "low",
+                    "name": "Low",
+                    "select":false
+                }
+
+            ]
+    }
+    
+
+
+]

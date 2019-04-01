@@ -1,0 +1,55 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark fondo_blanco lighten-1" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><img src="./assets/img/playvox.svg" class="mr-2"></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" mdbWavesEffect>Home<span class="sr-only">(Current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" mdbWavesEffect>Option1 </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" mdbWavesEffect>Option2</a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle" mdbWavesEffect>
+          Options<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item" mdbWavesEffect href="#">Action</a>
+          <a class="dropdown-item" mdbWavesEffect href="#">Other Action</a>
+          <a class="dropdown-item" mdbWavesEffect href="#">Other Action</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item" mdbWavesEffect href="#">Option Divided</a>
+        </div>
+      </li>
+
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item" >
+        <a class="nav-link text-dark" mdbWavesEffect>1 <mdb-icon  fas icon="envelope" color="text-dark"></mdb-icon></a>
+      </li>
+      <li class="nav-item avatar dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle" mdbWavesEffect>
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" alt="" class="img-fluid rounded-circle z-depth-0"></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item" mdbWavesEffect href="#">Mi account</a>
+          <a class="dropdown-item" mdbWavesEffect href="#">Logout</a>
+        </div>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
